@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ML Course Early Warning System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Machine Learning Course<br>Early Warning System</h1>
+    <p>Enter a student's marks. The model estimates the chance of failing and tells you who needs help first.</p>
+  </header>
+
+  <main>
+    <section class="stats" aria-label="Class summary">
+      <div class="stat"><span id="statTotal">0</span>Students</div>
+      <div class="stat high"><span id="statHigh">0</span>High risk</div>
+      <div class="stat med"><span id="statMed">0</span>Medium risk</div>
+      <div class="stat low"><span id="statLow">0</span>Low risk</div>
+    </section>
+
+    <section class="panel">
+      <h2>Add a student</h2>
+      <form id="studentForm">
+        <label>Name <input type="text" id="name" required placeholder="e.g. Asha Patil"></label>
+        <label>Attendance % <input type="number" id="attendance" min="0" max="100" required></label>
+        <label>Quiz average <input type="number" id="quiz" min="0" max="100" required></label>
+        <label>Assignment average <input type="number" id="assignment" min="0" max="100" required></label>
+        <label>Midterm exam <input type="number" id="midterm" min="0" max="100" required></label>
+        <label>Lab / project <input type="number" id="project" min="0" max="100" required></label>
+        <div class="actions">
+          <button type="submit">Add student</button>
+          <button type="button" id="sampleBtn" class="ghost">Load sample data</button>
+          <button type="button" id="clearBtn" class="ghost">Clear all</button>
+        </div>
+      </form>
+      <p id="formMsg" class="msg" role="status"></p>
+    </section>
+
+    <section class="panel">
+      <div class="row">
+        <h2>Students, highest risk first</h2>
+        <select id="filter" aria-label="Filter by risk">
+          <option value="all">All levels</option>
+          <option value="High">High only</option>
+          <option value="Medium">Medium only</option>
+          <option value="Low">Low only</option>
+        </select>
+      </div>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Student</th><th>Att.</th><th>Quiz</th><th>Assign.</th><th>Mid</th><th>Lab</th><th>Fail chance</th><th>Level</th><th>Main causes and advice</th><th></th></tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <p id="empty" class="msg">No students yet. Add one above or load sample data.</p>
+    </section>
+
+    <section class="panel how">
+      <h2>How the prediction works</h2>
+      <p>The system uses a logistic regression model, a standard machine learning classifier. Each mark is multiplied by a weight, the results are added up, and a sigmoid function turns the total into a probability between 0 and 1. The weights in <code>script.js</code> are set by hand for this demo; with real class data you would train them.</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
